@@ -18,37 +18,36 @@ const color = {
   },
 };
 
-module.exports = {
-  content: ["index.html", "./src/**/*.{js,jsx,ts,tsx,css}"],
-  theme: {
-    extend: {
-      colors: {
+export const content = ["index.html", "./src/**/*.{js,jsx,ts,tsx,css}"];
+export const darkMode = false;
+export const theme = {
+  extend: {
+    colors: {
+      primary: {
+        DEFAULT: color.brand[500],
+      },
+      secondary: {
+        DEFAULT: color.accent[800],
+      },
+      text: {
         primary: {
-          DEFAULT: color.brand[500],
-        },
-        secondary: {
-          DEFAULT: color.accent[800],
-        },
-        text: {
-          primary: {
-            DEFAULT: color.neutral[900],
-          },
-          secondary: {
-            DEFAULT: color.neutral[800],
-          },
-        },
-        link: {
-          DEFAULT: color.accent[500],
-          hover: color.accent[800],
-        },
-        background: {
-          DEFAULT: color.neutral[100],
-        },
-        border: {
           DEFAULT: color.neutral[900],
         },
+        secondary: {
+          DEFAULT: color.neutral[800],
+        },
+      },
+      link: {
+        DEFAULT: color.accent[500],
+        hover: color.accent[800],
+      },
+      background: {
+        DEFAULT: color.neutral[100],
+      },
+      border: {
+        DEFAULT: color.neutral[900],
       },
     },
   },
-  plugins: [],
 };
+export const plugins = [];
