@@ -186,23 +186,45 @@ const App = () => {
           </div>
         ) : (
           <>
+            {/* Multi-sort instruction */}
+            {multiSortConfigs.length > 0 && (
+              <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-blue-700 dark:text-blue-300">
+                    <strong>Multi-sort active:</strong> {multiSortConfigs.length} column{multiSortConfigs.length !== 1 ? 's' : ''} sorted.
+                    Click column headers to modify, or click without Ctrl/Cmd to reset to single sort.
+                  </span>
+                </div>
+              </div>
+            )}
+
             <CityTable
               cities={paginationResult.data}
               sortConfig={sortConfig}
+              multiSortConfigs={multiSortConfigs}
               onSort={handleSort}
               loading={loading}
             />
 
             {!loading && paginationResult.data.length > 0 && (
-              <Pagination
-                currentPage={paginationResult.pagination.currentPage}
-                totalPages={paginationResult.pagination.totalPages}
-                totalItems={paginationResult.pagination.totalItems}
-                pageSize={PAGE_SIZE}
-                onPageChange={handlePageChange}
-                startIndex={paginationResult.pagination.startIndex}
-                endIndex={paginationResult.pagination.endIndex}
-              />
+              <>
+                <Pagination
+                  currentPage={paginationResult.pagination.currentPage}
+                  totalPages={paginationResult.pagination.totalPages}
+                  totalItems={paginationResult.pagination.totalItems}
+                  pageSize={PAGE_SIZE}
+                  onPageChange={handlePageChange}
+                  startIndex={paginationResult.pagination.startIndex}
+                  endIndex={paginationResult.pagination.endIndex}
+                />
+
+                {/* Multi-sort help text */}
+                <div className="mt-4 text-center">
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    💡 <strong>Tip:</strong> Hold Ctrl/Cmd while clicking column headers to sort by multiple columns
+                  </p>
+                </div>
+              </>
             )}
           </>
         )}

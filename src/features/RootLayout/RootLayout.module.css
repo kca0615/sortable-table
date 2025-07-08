@@ -3,19 +3,10 @@
 
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1fr auto;
   grid-template-areas:
-    "header"
     "main"
     "footer";
-}
-
-.app-layout > header {
-  grid-area: header;
-
-  z-index: 1000;
-  position: sticky;
-  top: 0;
 }
 
 .app-layout > main {

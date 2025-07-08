@@ -48,7 +48,7 @@
   user-select: none;
   position: relative;
   transition: background-color 0.2s ease;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: space-between;
   gap: 8px;
@@ -69,6 +69,22 @@
   color: #6b7280;
   min-width: 16px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.sortPriority {
+  font-size: 10px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
 }
 
 .numberCell {
@@ -189,7 +205,7 @@
 }
 
 .sortButton {
-  display: flex;
+  /* display: flex; */
   align-items: center;
   gap: 4px;
   padding: 6px 12px;
