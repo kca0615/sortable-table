@@ -45,6 +45,110 @@ const CityTable: React.FC<CityTableProps> = ({
     return population.toLocaleString();
   };
 
+  const formatCapitalStatus = (capital: string): string => {
+    switch (capital) {
+      case "primary":
+        return "Primary Capital";
+      case "admin":
+        return "Administrative Capital";
+      case "minor":
+        return "Minor Capital";
+      default:
+        return capital || "Not a Capital";
+    }
+  };
+
+  const renderMobileSortControls = () => (
+    <div className={styles.sortControls}>
+      <span style={{ fontSize: "12px", color: "#6b7280", marginRight: "8px" }}>
+        Sort by:
+      </span>
+      <button
+        className={`${styles.sortButton} ${sortConfig.key === "name" ? styles.active : ""}`}
+        onClick={() => onSort("name")}
+        aria-label="Sort by city name"
+      >
+        City Name
+        {sortConfig.key === "name" && (
+          <span className={styles.sortButtonIcon}>
+            {sortConfig.direction === "asc"
+              ? "↑"
+              : sortConfig.direction === "desc"
+                ? "↓"
+                : "↕️"}
+          </span>
+        )}
+      </button>
+      <button
+        className={`${styles.sortButton} ${sortConfig.key === "country" ? styles.active : ""}`}
+        onClick={() => onSort("country")}
+        aria-label="Sort by country"
+      >
+        Country
+        {sortConfig.key === "country" && (
+          <span className={styles.sortButtonIcon}>
+            {sortConfig.direction === "asc"
+              ? "↑"
+              : sortConfig.direction === "desc"
+                ? "↓"
+                : "↕️"}
+          </span>
+        )}
+      </button>
+      <button
+        className={`${styles.sortButton} ${sortConfig.key === "population" ? styles.active : ""}`}
+        onClick={() => onSort("population")}
+        aria-label="Sort by population"
+      >
+        Population
+        {sortConfig.key === "population" && (
+          <span className={styles.sortButtonIcon}>
+            {sortConfig.direction === "asc"
+              ? "↑"
+              : sortConfig.direction === "desc"
+                ? "↓"
+                : "↕️"}
+          </span>
+        )}
+      </button>
+    </div>
+  );
+
+  const renderMobileCards = () => (
+    <div className={styles.mobileCards}>
+      {renderMobileSortControls()}
+      {cities.map((city) => (
+        <div
+          key={city.id}
+          className={styles.card}
+          role="article"
+          aria-label={`City: ${city.name}`}
+        >
+          <div className={styles.cardHeader}>
+            <div>
+              <h3 className={styles.cardTitle}>{city.name}</h3>
+              <p className={styles.cardSubtitle}>{city.country}</p>
+            </div>
+          </div>
+          <div className={styles.cardBody}>
+            <div className={styles.cardField}>
+              <span className={styles.cardFieldLabel}>Population</span>
+              <span className={styles.cardFieldValue}>
+                {formatPopulation(city.population)}
+              </span>
+            </div>
+            <div className={styles.cardField}>
+              <span className={styles.cardFieldLabel}>Capital Status</span>
+              <span className={styles.cardFieldValue}>
+                {formatCapitalStatus(city.capital)}
+              </span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
   if (loading) {
     return (
       <div className={styles.loadingContainer} role="status" aria-live="polite">
@@ -130,18 +234,15 @@ const CityTable: React.FC<CityTableProps> = ({
                 {formatPopulation(city.population)}
               </td>
               <td role="gridcell" className={styles.capitalCell}>
-                {city.capital === "primary"
-                  ? "Primary Capital"
-                  : city.capital === "admin"
-                    ? "Administrative Capital"
-                    : city.capital === "minor"
-                      ? "Minor Capital"
-                      : city.capital || "Not a Capital"}
+                {formatCapitalStatus(city.capital)}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {/* Mobile Card View */}
+      {renderMobileCards()}
     </div>
   );
 };

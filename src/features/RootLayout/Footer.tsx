@@ -1,5 +1,5 @@
 const copyrightYear = new Date().getFullYear();
-const gustoURL = "https://gusto.com/";
+const companyURL = "https://company.com/";
 
 export default function Footer() {
   return (
@@ -7,17 +7,17 @@ export default function Footer() {
       <p
         className={`
           mb-4 sm:mb-0
-          text-sm text-center text-text-primary 
+          text-sm text-center text-text-primary
         `}
       >
         &copy; {copyrightYear}{" "}
         <a
-          href={gustoURL}
+          href={companyURL}
           className="hover:underline"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Gusto
+          Company
         </a>
         . All rights reserved.
       </p>

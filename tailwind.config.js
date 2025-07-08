@@ -1,16 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 
 const color = {
-  guava: {
+  brand: {
     100: "#FFF3EF",
     500: "#F45D48",
   },
-  kale: {
+  accent: {
     100: "#F7FCFC",
     500: "#0A8080",
     800: "#005961",
   },
-  salt: {
+  neutral: {
     100: "#ffffff",
     200: "#FBFAFA",
     900: "#525257",
@@ -24,28 +24,28 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: color.guava[500],
+          DEFAULT: color.brand[500],
         },
         secondary: {
-          DEFAULT: color.kale[800],
+          DEFAULT: color.accent[800],
         },
         text: {
           primary: {
-            DEFAULT: color.salt[900],
+            DEFAULT: color.neutral[900],
           },
           secondary: {
-            DEFAULT: color.salt[800],
+            DEFAULT: color.neutral[800],
           },
         },
         link: {
-          DEFAULT: color.kale[500],
-          hover: color.kale[800],
+          DEFAULT: color.accent[500],
+          hover: color.accent[800],
         },
         background: {
-          DEFAULT: color.salt[100],
+          DEFAULT: color.neutral[100],
         },
         border: {
-          DEFAULT: color.salt[900],
+          DEFAULT: color.neutral[900],
         },
       },
     },

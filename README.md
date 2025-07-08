@@ -5,9 +5,9 @@
 We set this exercise up for a couple of reasons that we hope resonate with you:
 
 1. We think that a 1-hour window into coding a single problem is only going to provide us with a narrow view of your skills; and we get it – the extra pressure of trying to solve some puzzle doesn't do anyone justice, either
-2. We want to mimic an experience as close as possible to what you'd be doing on a day-to-day basis as a Frontend Engineer here at Gusto – reading through requirements, debating different approaches, and putting up a PR for review 🙌
+2. We want to mimic an experience as close as possible to what you'd be doing on a day-to-day basis as a Frontend Engineer here at Company – reading through requirements, debating different approaches, and putting up a PR for review 🙌
 
-This question is scoped down to what we think can be tackled in 4 hours or less, but otherwise, the requirements listed below, the designs provided alongside those, and the process are very similar to what you could expect from working at Gusto.
+This question is scoped down to what we think can be tackled in 4 hours or less, but otherwise, the requirements listed below, the designs provided alongside those, and the process are very similar to what you could expect from working at Company.
 
 ## Expectations and Instructions
 
@@ -70,7 +70,7 @@ Runs [Prettier](https://prettier.io/)
 
 ## The Problem
 
-Often enough, Gusto users need to deal with large sets of data – in this exercise, that would be a list of the cities of the world.
+Often enough, Company users need to deal with large sets of data – in this exercise, that would be a list of the cities of the world.
 We are looking to offer a delightful user experience when it comes to searching, sorting, and navigating through such datasets.
 
 In this exercise, we'll be focusing on these elements of your implementation:
@@ -126,7 +126,7 @@ _Note:_ These requirements use the "Priority Level Scale" where a P0 is the high
 
 _For reference, you can use the screenshot in the problem statement above. We've also uploaded some icons you might want to use for your implementation – you can find these under src/assets/.._ :pray:
 
-- [ ] **P0**: As a Gusto engineer, when I use `<SortableTable>`, its design matches the [mockups provided in the problem statement](#mockups)
+- [ ] **P0**: As a Company engineer, when I use `<SortableTable>`, its design matches the [mockups provided in the problem statement](#mockups)
 
 ## Product questions
 
@@ -201,10 +201,27 @@ src/
 
 ## 📱 Mobile Responsiveness
 
-- **Horizontal Scroll**: Table scrolls horizontally on small screens
-- **Adaptive Controls**: Pagination buttons adapt to screen size
-- **Touch Friendly**: Proper touch targets and spacing
-- **Icon Fallbacks**: Text labels hidden on very small screens
+### Adaptive Layout System
+
+- **Desktop (≥1024px)**: Full table layout with all columns visible
+- **Tablet (640px-1023px)**: Horizontal scrolling table with optimized spacing
+- **Mobile (<640px)**: Card-based layout with dedicated sort controls
+
+### Mobile-First Features
+
+- **Card Layout**: Cities displayed as individual cards on mobile
+- **Touch-Friendly Controls**: Large touch targets (minimum 44px)
+- **Mobile Sort Controls**: Dedicated sort buttons above cards
+- **Responsive Typography**: Scales appropriately across devices
+- **Optimized Spacing**: Reduced padding and margins on smaller screens
+- **iOS Safari Support**: Prevents zoom on input focus (16px font size)
+
+### Responsive Breakpoints
+
+- **Small (sm)**: 640px and up
+- **Medium (md)**: 768px and up
+- **Large (lg)**: 1024px and up
+- **Extra Large (xl)**: 1280px and up
 
 ## 🧪 Testing Strategy
 

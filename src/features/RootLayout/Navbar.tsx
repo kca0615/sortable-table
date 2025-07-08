@@ -33,7 +33,7 @@ export default function Navbar() {
               text-primary
             `}
           >
-            Gusto
+            Company
           </span>
         </a>
 

@@ -99,12 +99,12 @@ const App = () => {
 
   return (
     <RootLayout>
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+        <header className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2">
             World Cities Database
           </h1>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">
             Explore and search through major cities worldwide
           </p>
         </header>
@@ -112,9 +112,9 @@ const App = () => {
         <SearchInput onSearch={handleSearch} disabled={loading} />
 
         {error ? (
-          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
             <div className="flex items-center">
-              <span className="text-red-600 dark:text-red-400 font-medium">
+              <span className="text-sm sm:text-base text-red-600 dark:text-red-400 font-medium">
                 Error: {error.message}
               </span>
             </div>

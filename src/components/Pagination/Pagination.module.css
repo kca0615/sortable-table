@@ -81,7 +81,7 @@
   white-space: nowrap;
 }
 
-/* Mobile responsive */
+/* Tablet responsive */
 @media (max-width: 768px) {
   .pagination {
     flex-direction: column;
@@ -91,18 +91,20 @@
 
   .info {
     text-align: center;
+    order: 2;
   }
 
   .controls {
     justify-content: center;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 8px;
+    order: 1;
   }
 
   .button {
-    padding: 6px 8px;
+    padding: 8px 12px;
     font-size: 13px;
-    min-height: 32px;
+    min-height: 36px;
   }
 
   .buttonText {
@@ -114,7 +116,7 @@
   }
 
   .pageInfo {
-    padding: 0 8px;
+    padding: 0 12px;
   }
 
   .pageText {
@@ -122,20 +124,66 @@
   }
 }
 
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .pagination {
+    padding: 12px 0;
+    gap: 16px;
+  }
+
+  .controls {
+    gap: 4px;
+  }
+
+  .button {
+    padding: 8px 10px;
+    font-size: 12px;
+    min-height: 40px;
+    min-width: 40px;
+  }
+
+  .pageInfo {
+    background: #f8fafc;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .pageText {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
 @media (max-width: 480px) {
+  .controls {
+    gap: 2px;
+  }
+
+  .button {
+    padding: 6px 8px;
+    min-width: 36px;
+    min-height: 36px;
+  }
+
   .buttonText {
     display: none;
   }
 
-  .button {
-    padding: 6px;
-    min-width: 32px;
-    justify-content: center;
+  .buttonIcon {
+    font-size: 12px;
   }
 
   .pageInfo {
-    order: -1;
-    padding: 8px 0;
+    padding: 6px 10px;
+  }
+
+  .pageText {
+    font-size: 13px;
+  }
+
+  .infoText {
+    font-size: 12px;
   }
 }
 
