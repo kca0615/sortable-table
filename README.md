@@ -53,68 +53,7 @@ Runs [Prettier](https://prettier.io/)
   <img src="./mock-up-responsive.png" width="400px" />
 </details>
 
-## User-focused Requirements
-
-_Note:_ These requirements use the "Priority Level Scale" where a P0 is the highest priority, and a P4 is the lowest. Use this as a guideline to help you prioritize your time. We **don’t expect** you to complete every task.
-
-### Search
-
-- [x] **P0**: As a user, I want to search for cities by city name
-- [x] **P0**: As a user, I want to search for cities by country name
-- [ ] **P0**: As a user, I should know when a search does not match any city
-- [ ] **P0**: As a user, I should know when a search fails (**Note: if you search for 'error', we mimic an error for you :raised_hands:**)
-- [ ] **P1:** [Performance] As a user, I want the search to only kick in after 150ms since my last change to the search term. Do not use utility libraries (e.g., Lodash). We want to see your work!
-
-### Sorting
-
-- [ ] **P0**: As a user, I want to be able to toggle sorting (ascending) the search results by a single column
-- [ ] **P1**: As a user, I want to be able to toggle between ascending, descending, or no sorting of the search results by a single column
-- [ ] **P2**: As a user, I want to be able to toggle between ascending, descending, or no sorting of the search results by multiple columns
-
-### Pagination
-
-- [ ] **P0**: As a user, I want to be able to paginate through search results using a fixed page size (10)
-- [ ] **P0**: As a user, I want to be able to navigate between result pages
-- [ ] **P2**: As a user, I want to be able to paginate through search results using a dynamic page size
-- [ ] **P3**: As a user, I want to be able to go all the way to the first and last pages of the search results
-
-### Design
-
-_For reference, you can use the screenshot in the problem statement above. We've also uploaded some icons you might want to use for your implementation – you can find these under src/assets/.._ :pray:
-
-- [ ] **P0**: As a Company engineer, when I use `<SortableTable>`, its design matches the [mockups provided in the problem statement](#mockups)
-
-## Product questions
-
-- How many columns do we want to support?
-- How can users change the column's order?
-- What effort is required to hide or show columns?
-
----
-
-# Implementation Notes
-
-## ✅ Completed Features
-
-All requirements from the checklist have been implemented:
-
-- [x] Search filters by city and country
-- [x] Search debounce set to 150ms
-- [x] Search handles empty + error state (`"error"` input triggers failure)
-- [x] Single-column sort toggle (asc, desc, none)
-- [x] Pagination: fixed page size of 10
-- [x] Pagination controls: first, previous, next, last
-- [x] Table layout matches mockups
-- [x] ARIA: roles, labels, `aria-sort`
-- [x] Mobile responsive (horizontal scroll)
-- [x] `README.md` written (clear, concise, tradeoffs noted)
-- [x] Unit tests added for `sort.ts` + `paginate.ts`
-- [x] No external deps used for debounce, sorting, etc.
-- [x] Code formatted (`npm run format`)
-- [x] ESLint clean (`npm run lint`)
-- [x] Work committed in a new branch & PR created
-
-## 🏗️ Architecture
+## Architecture
 
 ### Component Structure
 
@@ -140,14 +79,14 @@ src/
 4. **Mobile Responsive**: Horizontal scroll for table, adaptive pagination controls
 5. **Type Safety**: Comprehensive TypeScript coverage
 
-## 🎯 Performance Optimizations
+## Performance Optimizations
 
 - **Debounced Search**: 150ms delay prevents excessive API calls
 - **Memoized Callbacks**: Prevents unnecessary re-renders
 - **Client-Side Caching**: Search results cached for instant sorting/pagination
 - **Efficient Sorting**: Stable sort with proper type handling
 
-## ♿ Accessibility Features
+## Accessibility Features
 
 - **ARIA Roles**: `table`, `row`, `columnheader`, `gridcell`
 - **Sort Indicators**: `aria-sort` attributes for screen readers
@@ -155,7 +94,7 @@ src/
 - **Focus Management**: Clear focus indicators and logical tab order
 - **Screen Reader Support**: Descriptive labels and live regions
 
-## 📱 Mobile Responsiveness
+## Mobile Responsiveness
 
 ### Adaptive Layout System
 
@@ -179,14 +118,14 @@ src/
 - **Large (lg)**: 1024px and up
 - **Extra Large (xl)**: 1280px and up
 
-## 🧪 Testing Strategy
+## Testing Strategy
 
 - **Unit Tests**: Core utilities (`sort.ts`, `paginate.ts`) fully tested
 - **Edge Cases**: Null values, empty data, boundary conditions
 - **Type Safety**: TypeScript catches type-related issues
 - **Manual Testing**: Cross-browser and device testing
 
-## 🔄 Tradeoffs & Future Improvements
+## Tradeoffs & Future Improvements
 
 ### Current Tradeoffs
 
@@ -203,15 +142,3 @@ src/
 5. **Export Functionality**: CSV/Excel export
 6. **Infinite Scroll**: Alternative to pagination
 
-## 🚀 Production Readiness
-
-To make this production-ready, consider:
-
-1. **Error Monitoring**: Sentry/Bugsnag integration
-2. **Analytics**: User interaction tracking
-3. **Performance Monitoring**: Core Web Vitals tracking
-4. **Caching Strategy**: Redis/CDN for API responses
-5. **Rate Limiting**: API protection
-6. **Internationalization**: Multi-language support
-7. **Progressive Enhancement**: Works without JavaScript
-8. **Security**: Input sanitization, CSP headers
