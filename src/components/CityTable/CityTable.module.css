@@ -1,0 +1,175 @@
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* Ensures horizontal scroll on mobile */
+}
+
+.table thead {
+  background-color: #f8fafc;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.table th,
+.table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.table th {
+  font-weight: 600;
+  color: #374151;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.table td {
+  color: #1f2937;
+  font-size: 14px;
+}
+
+.sortableHeader {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sortableHeader:hover {
+  background-color: #e2e8f0;
+}
+
+.sortableHeader:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+  background-color: #e2e8f0;
+}
+
+.sortIcon {
+  font-size: 12px;
+  color: #6b7280;
+  min-width: 16px;
+  text-align: center;
+}
+
+.numberCell {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.capitalCell {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 16px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.loading {
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.emptyState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 16px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.emptyState p {
+  color: #6b7280;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .table th,
+  .table td {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .sortableHeader {
+    gap: 4px;
+  }
+
+  .sortIcon {
+    font-size: 10px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .tableContainer {
+    background: #1f2937;
+    border-color: #374151;
+  }
+
+  .table thead {
+    background-color: #374151;
+    border-bottom-color: #4b5563;
+  }
+
+  .table th,
+  .table td {
+    border-bottom-color: #374151;
+  }
+
+  .table th {
+    color: #f9fafb;
+  }
+
+  .table td {
+    color: #e5e7eb;
+  }
+
+  .sortableHeader:hover,
+  .sortableHeader:focus {
+    background-color: #4b5563;
+  }
+
+  .sortIcon {
+    color: #9ca3af;
+  }
+
+  .capitalCell {
+    color: #9ca3af;
+  }
+
+  .loadingContainer,
+  .emptyState {
+    background: #1f2937;
+    border-color: #374151;
+  }
+
+  .loading,
+  .emptyState p {
+    color: #9ca3af;
+  }
+}
