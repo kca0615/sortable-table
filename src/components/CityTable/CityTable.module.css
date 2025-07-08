@@ -76,9 +76,18 @@
   font-variant-numeric: tabular-nums;
 }
 
+.numberHeader {
+  text-align: right;
+  justify-content: flex-end;
+}
+
 .capitalCell {
   font-size: 13px;
   color: #6b7280;
+}
+
+.capitalHeader {
+  text-align: left;
 }
 
 .loadingContainer {

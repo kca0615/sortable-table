@@ -1,33 +1,4 @@
-# Take-home Exercise: Sortable Table
-
-👋 Hello! Thanks so much for taking part in our interview process! We know that it takes time and effort away from other things, and we appreciate it.
-
-We set this exercise up for a couple of reasons that we hope resonate with you:
-
-1. We think that a 1-hour window into coding a single problem is only going to provide us with a narrow view of your skills; and we get it – the extra pressure of trying to solve some puzzle doesn't do anyone justice, either
-2. We want to mimic an experience as close as possible to what you'd be doing on a day-to-day basis as a Frontend Engineer here at Company – reading through requirements, debating different approaches, and putting up a PR for review 🙌
-
-This question is scoped down to what we think can be tackled in 4 hours or less, but otherwise, the requirements listed below, the designs provided alongside those, and the process are very similar to what you could expect from working at Company.
-
-## Expectations and Instructions
-
-Think of this project as a [spike](<https://en.wikipedia.org/wiki/Spike_(software_development)>) or a prototype — a small task to reduce uncertainty or demonstrate the viability of a larger task. We **don’t expect** you to submit complete and production-ready code in under 4 hours. Like a small, timeboxed problem you might take on at work, we’re looking for a reasonably complete implementation that you would be proud to bring to your team as a first pass.
-
-What we **do expect** to see is how you prioritize within time constraints, what your PRs might look like, how you think about iterative development, and how you might bring open questions and next steps to your team. We want this to be a rough likeness of what it would be like to work together. Pretend that this is work you would put up to talk through a problem with the engineers on your team.
-
-_Hint:_ Think about and discuss design/product requirements, performance, browser support, accessibility, code readability, and what steps you would have to take to make this production-ready.
-
-- Any changes should be placed in a new branch within this repository and have a corresponding pull request
-- Timebox this to between three and four hours. Doing more work is not better. Tradeoffs related to how you spend a finite amount of time are an important part of engineering.
-- Please use only the provided libraries and frameworks. While other tools could solve these problems, we want to focus on your code-writing approach without additional dependencies
-
-### Submitting your work
-
-- You may submit as many pull requests as you need
-- Do not merge your pull request(s) into the main branch
-- **When you're done, please email your recruiter that you have finished**
-
-Please note, any changes made after your initial submission will not be considered
+# Sortable Table
 
 ## Project
 
@@ -65,21 +36,6 @@ Runs [ESLint](https://eslint.org/). There is also an auto-fix command if you run
 #### `npm run format`
 
 Runs [Prettier](https://prettier.io/)
-
-# Product requirements :books:
-
-## The Problem
-
-Often enough, Company users need to deal with large sets of data – in this exercise, that would be a list of the cities of the world.
-We are looking to offer a delightful user experience when it comes to searching, sorting, and navigating through such datasets.
-
-In this exercise, we'll be focusing on these elements of your implementation:
-
-- The reusability/flexibility of the `<SortableTable>` component (or set of components) you'll be coding up
-- The user interface and user experience of your app:
-  - Visual design
-  - Navigation
-  - Performance
 
 ### Mockups
 

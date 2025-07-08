@@ -4,13 +4,14 @@ import { useEffect, useCallback, useState } from "react";
 
 import type { City, GetCitiesResult } from "./api/getCities";
 import { getCities } from "./api/getCities";
-import { sortData, toggleSortDirection, SortDirection } from "./utils/sort";
+import { sortData, sortDataMulti, toggleSortDirection, SortDirection, MultiSortConfig } from "./utils/sort";
 import { paginateData } from "./utils/paginate";
 
 import RootLayout from "./features/RootLayout/RootLayout";
 import SearchInput from "./components/SearchInput/SearchInput";
 import CityTable from "./components/CityTable/CityTable";
 import Pagination from "./components/Pagination/Pagination";
+import ExportButton from "./components/ExportButton/ExportButton";
 
 const PAGE_SIZE = 10;
 
@@ -20,7 +21,7 @@ const App = () => {
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // Sorting state
+  // Sorting state - support both single and multi-sort
   const [sortConfig, setSortConfig] = useState<{
     key: keyof City | null;
     direction: SortDirection;
@@ -28,6 +29,9 @@ const App = () => {
     key: null,
     direction: "none",
   });
+
+  // Multi-sort state
+  const [multiSortConfigs, setMultiSortConfigs] = useState<MultiSortConfig<City>[]>([]);
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -64,18 +68,60 @@ const App = () => {
     setSearchTerm(term);
   }, []);
 
-  const handleSort = useCallback((key: keyof City) => {
-    setSortConfig((prevConfig) => {
-      const newDirection =
-        prevConfig.key === key
-          ? toggleSortDirection(prevConfig.direction)
-          : "asc";
+  const handleSort = useCallback((key: keyof City, isMultiSort: boolean = false) => {
+    if (isMultiSort) {
+      // Multi-sort mode: add/update/remove from multi-sort configs
+      setMultiSortConfigs((prevConfigs) => {
+        const existingIndex = prevConfigs.findIndex(config => config.key === key);
 
-      return {
-        key: newDirection === "none" ? null : key,
-        direction: newDirection,
-      };
-    });
+        if (existingIndex >= 0) {
+          // Column already in multi-sort, toggle its direction
+          const existingConfig = prevConfigs[existingIndex];
+          const newDirection = toggleSortDirection(existingConfig.direction);
+
+          if (newDirection === "none") {
+            // Remove from multi-sort
+            return prevConfigs.filter((_, index) => index !== existingIndex);
+          } else {
+            // Update direction, keep same priority
+            return prevConfigs.map((config, index) =>
+              index === existingIndex
+                ? { ...config, direction: newDirection }
+                : config
+            );
+          }
+        } else {
+          // Add new column to multi-sort with lowest priority
+          const maxPriority = prevConfigs.length > 0
+            ? Math.max(...prevConfigs.map(c => c.priority))
+            : -1;
+
+          return [...prevConfigs, {
+            key,
+            direction: "asc" as SortDirection,
+            priority: maxPriority + 1
+          }];
+        }
+      });
+
+      // Clear single sort when using multi-sort
+      setSortConfig({ key: null, direction: "none" });
+    } else {
+      // Single sort mode: clear multi-sort and use single sort
+      setMultiSortConfigs([]);
+      setSortConfig((prevConfig) => {
+        const newDirection =
+          prevConfig.key === key
+            ? toggleSortDirection(prevConfig.direction)
+            : "asc";
+
+        return {
+          key: newDirection === "none" ? null : key,
+          direction: newDirection,
+        };
+      });
+    }
+
     setCurrentPage(1); // Reset to first page when sorting
   }, []);
 
@@ -84,12 +130,21 @@ const App = () => {
   }, []);
 
   // Apply sorting and pagination
-  const sortedCities = sortConfig.key
-    ? sortData(allCities, {
+  const sortedCities = (() => {
+    if (multiSortConfigs.length > 0) {
+      // Use multi-sort
+      return sortDataMulti(allCities, multiSortConfigs);
+    } else if (sortConfig.key) {
+      // Use single sort
+      return sortData(allCities, {
         key: sortConfig.key,
         direction: sortConfig.direction,
-      })
-    : allCities;
+      });
+    } else {
+      // No sorting
+      return allCities;
+    }
+  })();
 
   const paginationResult = paginateData(sortedCities, {
     currentPage,
@@ -109,7 +164,17 @@ const App = () => {
           </p>
         </header>
 
-        <SearchInput onSearch={handleSearch} disabled={loading} />
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-end mb-6">
+          <div className="flex-1 w-full">
+            <SearchInput onSearch={handleSearch} disabled={loading} />
+          </div>
+          <div className="flex-shrink-0">
+            <ExportButton
+              cities={sortedCities}
+              disabled={loading}
+            />
+          </div>
+        </div>
 
         {error ? (
           <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">

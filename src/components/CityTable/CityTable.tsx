@@ -34,7 +34,7 @@ const CityTable: React.FC<CityTableProps> = ({
     }
   };
 
-  const getAriaSortForColumn = (columnKey: keyof City): string => {
+  const getAriaSortForColumn = (columnKey: keyof City): "none" | "ascending" | "descending" => {
     if (sortConfig.key !== columnKey) {
       return "none";
     }
@@ -209,7 +209,7 @@ const CityTable: React.FC<CityTableProps> = ({
             <th
               role="columnheader"
               aria-sort={getAriaSortForColumn("population")}
-              className={styles.sortableHeader}
+              className={`${styles.sortableHeader} ${styles.numberHeader}`}
               onClick={() => onSort("population")}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
@@ -222,7 +222,7 @@ const CityTable: React.FC<CityTableProps> = ({
               <span>Population</span>
               {getSortIcon("population")}
             </th>
-            <th role="columnheader">Capital Status</th>
+            <th role="columnheader" className={styles.capitalHeader}>Capital Status</th>
           </tr>
         </thead>
         <tbody>

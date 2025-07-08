@@ -23,7 +23,6 @@ export interface GetCitiesResult {
 }
 
 const collator = new Intl.Collator("en", { sensitivity: "base" });
-
 export const getCities = async ({
   limit = 10000,
   offset = 0,
