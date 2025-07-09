@@ -54,7 +54,7 @@ function SearchInput({
           autoComplete="off"
         />
         {!inputValue && (
-          <div className={styles.searchIcon} aria-hidden="true">
+          <div className={styles.searchIcon} aria-hidden="true" data-testid="search-icon">
             <img src={SearchIconUrl} alt="" width="16" height="16" />
           </div>
         )}

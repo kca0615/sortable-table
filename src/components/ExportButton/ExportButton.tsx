@@ -9,11 +9,11 @@ export interface ExportButtonProps {
   className?: string;
 }
 
-const ExportButton: React.FC<ExportButtonProps> = ({ 
-  cities, 
+function ExportButton({
+  cities,
   disabled = false,
   className = ''
-}) => {
+}: ExportButtonProps) {
   const [isExporting, setIsExporting] = useState(false);
 
   const handleExport = async () => {
@@ -53,6 +53,6 @@ const ExportButton: React.FC<ExportButtonProps> = ({
       <span className={styles.buttonText}>{buttonText}</span>
     </button>
   );
-};
+}
 
 export default ExportButton;
