@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDebounce } from "../../utils/debounce";
 import styles from "./SearchInput.module.css";
+import SearchIconUrl from "../../assets/Search.svg";
+import CloseIconUrl from "../../assets/Close.svg";
 
 export interface SearchInputProps {
   onSearch: (searchTerm: string) => void;
@@ -9,12 +11,12 @@ export interface SearchInputProps {
   disabled?: boolean;
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({
+function SearchInput({
   onSearch,
   placeholder = "Search cities by name or country...",
   debounceMs = 150,
   disabled = false,
-}) => {
+}: SearchInputProps) {
   const [inputValue, setInputValue] = useState("");
   const debouncedSearchTerm = useDebounce(inputValue, debounceMs);
 
@@ -53,7 +55,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
         />
         {!inputValue && (
           <div className={styles.searchIcon} aria-hidden="true">
-            🔍
+            <img src={SearchIconUrl} alt="" width="16" height="16" />
           </div>
         )}
         {inputValue && (
@@ -64,7 +66,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
             aria-label="Clear search"
             title="Clear search"
           >
-            ✕
+            <img src={CloseIconUrl} alt="" width="16" height="16" />
           </button>
         )}
       </div>
@@ -73,6 +75,6 @@ const SearchInput: React.FC<SearchInputProps> = ({
       </div>
     </div>
   );
-};
+}
 
 export default SearchInput;

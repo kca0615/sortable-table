@@ -14,13 +14,13 @@ export interface CityTableProps {
   loading?: boolean;
 }
 
-const CityTable: React.FC<CityTableProps> = ({
+function CityTable({
   cities,
   sortConfig,
   multiSortConfigs = [],
   onSort,
   loading = false,
-}) => {
+}: CityTableProps) {
   const getSortIcon = (columnKey: keyof City) => {
     // Check if column is in multi-sort
     const multiSortConfig = multiSortConfigs.find(config => config.key === columnKey);
@@ -282,6 +282,6 @@ const CityTable: React.FC<CityTableProps> = ({
       {renderMobileCards()}
     </div>
   );
-};
+}
 
 export default CityTable;

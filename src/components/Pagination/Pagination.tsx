@@ -12,14 +12,14 @@ export interface PaginationProps {
   endIndex: number;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
+function Pagination({
   currentPage,
   totalPages,
   totalItems,
   onPageChange,
   startIndex,
   endIndex,
-}) => {
+}: PaginationProps) {
   const handleFirstPage = () => {
     onPageChange(paginationHelpers.goToFirstPage());
   };
@@ -117,6 +117,6 @@ const Pagination: React.FC<PaginationProps> = ({
       </div>
     </nav>
   );
-};
+}
 
 export default Pagination;

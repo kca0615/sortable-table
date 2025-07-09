@@ -55,7 +55,7 @@
 }
 
 .input::placeholder {
-  color: #9ca3af;
+  color: #e5e7eb;
 }
 
 .clearButton {
@@ -100,11 +100,11 @@
 
   .input {
     font-size: 16px; /* Prevents zoom on iOS */
-    padding: 10px 16px 10px 40px;
+    padding: 10px 40px 10px 16px;
   }
 
   .searchIcon {
-    left: 12px;
+    right: 12px;
     font-size: 15px;
   }
 
@@ -133,13 +133,13 @@
 
   .input {
     font-size: 16px; /* Prevents zoom on iOS */
-    padding: 10px 16px 10px 44px;
+    padding: 10px 44px 10px 16px;
     border-radius: 10px;
     border-width: 2px;
   }
 
   .searchIcon {
-    left: 14px;
+    right: 14px;
     font-size: 16px;
   }
 
@@ -158,11 +158,11 @@
 
 @media (max-width: 480px) {
   .input {
-    padding: 10px 14px 10px 40px;
+    padding: 10px 40px 10px 14px;
   }
 
   .searchIcon {
-    left: 12px;
+    right: 12px;
     font-size: 14px;
   }
 
@@ -201,7 +201,7 @@
   }
 
   .input::placeholder {
-    color: #6b7280;
+    color: #e5e7eb;
   }
 
   .clearButton {
