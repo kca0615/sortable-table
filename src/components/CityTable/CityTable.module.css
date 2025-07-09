@@ -63,7 +63,7 @@
 
 .sortIcon {
   font-size: 12px;
-  color: #6b7280;
+  color: white;
   min-width: 16px;
   text-align: center;
   display: inline-flex;
@@ -74,7 +74,7 @@
 
 .sortPriority {
   font-size: 10px;
-  background: #3b82f6;
+  background: #1f2937;
   color: white;
   border-radius: 50%;
   width: 14px;

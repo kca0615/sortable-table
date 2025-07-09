@@ -2,11 +2,11 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
+  padding: 12px 16px;
   background: #3b82f6;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -45,4 +45,25 @@
 
 .exportButton:focus:not(:disabled) {
   background: #2563eb;
+}
+
+.buttonText {
+  display: inline;
+}
+
+/* Mobile responsive - hide text, show only icon */
+@media (max-width: 640px) {
+  .exportButton {
+    padding: 14px;
+    min-width: 40px;
+    justify-content: center;
+  }
+
+  .buttonText {
+    display: none;
+  }
+
+  .icon {
+    font-size: 18px;
+  }
 }

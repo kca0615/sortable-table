@@ -50,7 +50,7 @@ const ExportButton: React.FC<ExportButtonProps> = ({
       <span className={styles.icon} aria-hidden="true">
         📊
       </span>
-      {buttonText}
+      <span className={styles.buttonText}>{buttonText}</span>
     </button>
   );
 };

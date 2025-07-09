@@ -68,9 +68,32 @@ const App = () => {
     setSearchTerm(term);
   }, []);
 
-  const handleSort = useCallback((key: keyof City, isMultiSort: boolean = false) => {
-    if (isMultiSort) {
-      // Multi-sort mode: add/update/remove from multi-sort configs
+  const handleSort = useCallback((key: keyof City) => {
+    // Check if we're currently in single sort mode or multi-sort mode
+    const isCurrentlySingleSort = multiSortConfigs.length === 0 && sortConfig.key !== null;
+    const isCurrentlyMultiSort = multiSortConfigs.length > 0;
+
+    if (isCurrentlySingleSort) {
+      // We have a single sort active
+      if (sortConfig.key === key) {
+        // Clicking the same column - toggle its direction
+        const newDirection = toggleSortDirection(sortConfig.direction);
+        if (newDirection === "none") {
+          // Clear sort entirely
+          setSortConfig({ key: null, direction: "none" });
+        } else {
+          setSortConfig({ key, direction: newDirection });
+        }
+      } else {
+        // Clicking a different column - convert to multi-sort
+        setMultiSortConfigs([
+          { key: sortConfig.key!, direction: sortConfig.direction, priority: 0 },
+          { key, direction: "asc", priority: 1 }
+        ]);
+        setSortConfig({ key: null, direction: "none" });
+      }
+    } else if (isCurrentlyMultiSort) {
+      // We're in multi-sort mode
       setMultiSortConfigs((prevConfigs) => {
         const existingIndex = prevConfigs.findIndex(config => config.key === key);
 
@@ -81,7 +104,18 @@ const App = () => {
 
           if (newDirection === "none") {
             // Remove from multi-sort
-            return prevConfigs.filter((_, index) => index !== existingIndex);
+            const newConfigs = prevConfigs.filter((_, index) => index !== existingIndex);
+
+            // If only one column left, convert back to single sort
+            if (newConfigs.length === 1) {
+              setSortConfig({ key: newConfigs[0].key, direction: newConfigs[0].direction });
+              return [];
+            }
+
+            // Reorder priorities to be sequential (0, 1, 2, ...)
+            return newConfigs
+              .sort((a, b) => a.priority - b.priority)
+              .map((config, index) => ({ ...config, priority: index }));
           } else {
             // Update direction, keep same priority
             return prevConfigs.map((config, index) =>
@@ -103,27 +137,14 @@ const App = () => {
           }];
         }
       });
-
-      // Clear single sort when using multi-sort
-      setSortConfig({ key: null, direction: "none" });
     } else {
-      // Single sort mode: clear multi-sort and use single sort
+      // No sort active - start with single sort
+      setSortConfig({ key, direction: "asc" });
       setMultiSortConfigs([]);
-      setSortConfig((prevConfig) => {
-        const newDirection =
-          prevConfig.key === key
-            ? toggleSortDirection(prevConfig.direction)
-            : "asc";
-
-        return {
-          key: newDirection === "none" ? null : key,
-          direction: newDirection,
-        };
-      });
     }
 
     setCurrentPage(1); // Reset to first page when sorting
-  }, []);
+  }, [sortConfig, multiSortConfigs]);
 
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
@@ -164,9 +185,11 @@ const App = () => {
           </p>
         </header>
 
-        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-end mb-6">
-          <div className="flex-1 w-full">
-            <SearchInput onSearch={handleSearch} disabled={loading} />
+        <div className="flex gap-4 mb-6" style={{ alignItems: 'flex-start' }}>
+          <div className="flex-1">
+            <div style={{ marginBottom: 0 }}>
+              <SearchInput onSearch={handleSearch} disabled={loading} />
+            </div>
           </div>
           <div className="flex-shrink-0">
             <ExportButton
@@ -188,11 +211,11 @@ const App = () => {
           <>
             {/* Multi-sort instruction */}
             {multiSortConfigs.length > 0 && (
-              <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-blue-700 dark:text-blue-300">
+                  <span className="text-sm text-blue-900">
                     <strong>Multi-sort active:</strong> {multiSortConfigs.length} column{multiSortConfigs.length !== 1 ? 's' : ''} sorted.
-                    Click column headers to modify, or click without Ctrl/Cmd to reset to single sort.
+                    Click column headers to modify sort direction.
                   </span>
                 </div>
               </div>
@@ -221,7 +244,7 @@ const App = () => {
                 {/* Multi-sort help text */}
                 <div className="mt-4 text-center">
                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                    💡 <strong>Tip:</strong> Hold Ctrl/Cmd while clicking column headers to sort by multiple columns
+                    💡 <strong>Tip:</strong> Click different column headers to sort by multiple columns
                   </p>
                 </div>
               </>

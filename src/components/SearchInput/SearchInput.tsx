@@ -38,13 +38,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
 
   return (
     <div className={styles.searchContainer}>
-      <label htmlFor="city-search" className={styles.label}>
-        Search Cities
-      </label>
       <div className={styles.inputContainer}>
-        <div className={styles.searchIcon} aria-hidden="true">
-          🔍
-        </div>
         <input
           id="city-search"
           type="text"
@@ -57,6 +51,11 @@ const SearchInput: React.FC<SearchInputProps> = ({
           aria-describedby="search-help"
           autoComplete="off"
         />
+        {!inputValue && (
+          <div className={styles.searchIcon} aria-hidden="true">
+            🔍
+          </div>
+        )}
         {inputValue && (
           <button
             type="button"

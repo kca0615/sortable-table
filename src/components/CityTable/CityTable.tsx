@@ -84,58 +84,69 @@ const CityTable: React.FC<CityTableProps> = ({
     }
   };
 
+  const getMobileSortIcon = (columnKey: keyof City) => {
+    // Check if column is in multi-sort
+    const multiSortConfig = multiSortConfigs.find(config => config.key === columnKey);
+
+    if (multiSortConfig) {
+      const priorityNumber = multiSortConfig.priority + 1; // Display as 1-based
+      const arrow = multiSortConfig.direction === "asc" ? "↑" : "↓";
+      return (
+        <span className={styles.sortButtonIcon}>
+          {arrow}
+          <span style={{ fontSize: "8px", marginLeft: "2px" }}>{priorityNumber}</span>
+        </span>
+      );
+    }
+
+    // Check single sort
+    if (sortConfig.key === columnKey) {
+      return (
+        <span className={styles.sortButtonIcon}>
+          {sortConfig.direction === "asc"
+            ? "↑"
+            : sortConfig.direction === "desc"
+              ? "↓"
+              : "↕️"}
+        </span>
+      );
+    }
+
+    return null;
+  };
+
+  const isMobileSortActive = (columnKey: keyof City) => {
+    return sortConfig.key === columnKey || multiSortConfigs.some(config => config.key === columnKey);
+  };
+
   const renderMobileSortControls = () => (
     <div className={styles.sortControls}>
-      <span style={{ fontSize: "12px", color: "#6b7280", marginRight: "8px" }}>
+      <span style={{ fontSize: "12px", color: "#ffffff", marginRight: "8px" }}>
         Sort by:
       </span>
       <button
-        className={`${styles.sortButton} ${sortConfig.key === "name" ? styles.active : ""}`}
+        className={`${styles.sortButton} ${isMobileSortActive("name") ? styles.active : ""}`}
         onClick={() => onSort("name")}
         aria-label="Sort by city name"
       >
         City Name
-        {sortConfig.key === "name" && (
-          <span className={styles.sortButtonIcon}>
-            {sortConfig.direction === "asc"
-              ? "↑"
-              : sortConfig.direction === "desc"
-                ? "↓"
-                : "↕️"}
-          </span>
-        )}
+        {getMobileSortIcon("name")}
       </button>
       <button
-        className={`${styles.sortButton} ${sortConfig.key === "country" ? styles.active : ""}`}
+        className={`${styles.sortButton} ${isMobileSortActive("country") ? styles.active : ""}`}
         onClick={() => onSort("country")}
         aria-label="Sort by country"
       >
         Country
-        {sortConfig.key === "country" && (
-          <span className={styles.sortButtonIcon}>
-            {sortConfig.direction === "asc"
-              ? "↑"
-              : sortConfig.direction === "desc"
-                ? "↓"
-                : "↕️"}
-          </span>
-        )}
+        {getMobileSortIcon("country")}
       </button>
       <button
-        className={`${styles.sortButton} ${sortConfig.key === "population" ? styles.active : ""}`}
+        className={`${styles.sortButton} ${isMobileSortActive("population") ? styles.active : ""}`}
         onClick={() => onSort("population")}
         aria-label="Sort by population"
       >
         Population
-        {sortConfig.key === "population" && (
-          <span className={styles.sortButtonIcon}>
-            {sortConfig.direction === "asc"
-              ? "↑"
-              : sortConfig.direction === "desc"
-                ? "↓"
-                : "↕️"}
-          </span>
-        )}
+        {getMobileSortIcon("population")}
       </button>
     </div>
   );
@@ -204,11 +215,11 @@ const CityTable: React.FC<CityTableProps> = ({
               role="columnheader"
               aria-sort={getAriaSortForColumn("name")}
               className={styles.sortableHeader}
-              onClick={(e) => onSort("name", e.ctrlKey || e.metaKey)}
+              onClick={() => onSort("name")}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  onSort("name", e.ctrlKey || e.metaKey);
+                  onSort("name");
                 }
               }}
               tabIndex={0}
@@ -220,11 +231,11 @@ const CityTable: React.FC<CityTableProps> = ({
               role="columnheader"
               aria-sort={getAriaSortForColumn("country")}
               className={styles.sortableHeader}
-              onClick={(e) => onSort("country", e.ctrlKey || e.metaKey)}
+              onClick={() => onSort("country")}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  onSort("country", e.ctrlKey || e.metaKey);
+                  onSort("country");
                 }
               }}
               tabIndex={0}
@@ -236,11 +247,11 @@ const CityTable: React.FC<CityTableProps> = ({
               role="columnheader"
               aria-sort={getAriaSortForColumn("population")}
               className={`${styles.sortableHeader} ${styles.numberHeader}`}
-              onClick={(e) => onSort("population", e.ctrlKey || e.metaKey)}
+              onClick={() => onSort("population")}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  onSort("population", e.ctrlKey || e.metaKey);
+                  onSort("population");
                 }
               }}
               tabIndex={0}
